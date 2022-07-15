@@ -3,6 +3,8 @@ from sqlalchemy.orm import foreign
 
 from config import db
 
+"""Модель пользователей"""
+
 
 class User(db.Model):
     __tablename__ = 'user'
@@ -24,6 +26,10 @@ class User(db.Model):
             "role": self.role,
             "phone": self.phone
         }
+
+
+"""Модель заказов"""
+
 
 class Order(db.Model):
     __tablename__ = 'order'
@@ -49,6 +55,9 @@ class Order(db.Model):
             "customer_id": self.customer_id,
             "executor_id": self.executor_id
         }
+
+
+"""Модель предложений"""
 
 
 class Offer(db.Model):

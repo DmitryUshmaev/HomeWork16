@@ -4,12 +4,12 @@ from models import Order, User, Offer
 from service import init_db, get_all, insert_data_user, update, update_v2, insert_data_order, insert_data_offer, delete
 from flask import request
 
-
+"""Эндпоинт для отображения всех пользователей"""
 @app.route("/users/", methods=["GET", "POST"])
 def get_users():
     if request.method == "GET":
         return app.response_class(
-            response=json.dumps(get_all(User), indent=4),
+            response=json.dumps(get_all(User), indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
@@ -19,6 +19,7 @@ def get_users():
         elif isinstance(request.json, dict):
             insert_data_user([request.json])
 
+"""Эндпоинт для отображения пользователя по его id"""
 
 @app.route("/user/<int:user_id>", methods=["GET", "PUT", "DELETE"])
 def get_user_by_id(user_id):
@@ -27,30 +28,32 @@ def get_user_by_id(user_id):
         for row in data:
             if row.get("id") == user_id:
                 return app.response_class(
-                    response=json.dumps(row, indent=4),
+                    response=json.dumps(row, indent=4, ensure_ascii=False),
                     status=200,
                     mimetype="application/json"
                 )
     elif request.method == "PUT":
         update_v2(User, user_id, request.json)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
     elif request.method == "DELETE":
         delete(User, user_id)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
+
+"""Эндпоинт для отображения всех заказов"""
 
 @app.route("/orders/", methods=["GET", "POST"])
 def get_orders():
     if request.method == "GET":
         return app.response_class(
-            response=json.dumps(get_all(Order), indent=4),
+            response=json.dumps(get_all(Order), indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
@@ -60,6 +63,7 @@ def get_orders():
         elif isinstance(request.json, dict):
             insert_data_order([request.json])
 
+"""Эндпоинт для отображения заказа по его id"""
 
 @app.route("/order/<int:order_id>", methods=["GET", "PUT", "DELETE"])
 def get_order_by_id(order_id):
@@ -68,31 +72,32 @@ def get_order_by_id(order_id):
         for row in data:
             if row.get("id") == order_id:
                 return app.response_class(
-                    response=json.dumps(row, indent=4),
+                    response=json.dumps(row, indent=4, ensure_ascii=False),
                     status=200,
                     mimetype="application/json"
                 )
     elif request.method == "PUT":
         update_v2(User, order_id, request.json)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
     elif request.method == "DELETE":
         delete(User, order_id)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
 
+"""Эндпоинт для отображения всех предложений"""
 
 @app.route("/offers/", methods=["GET", "POST"])
 def get_offers():
     if request.method == "GET":
         return app.response_class(
-            response=json.dumps(get_all(Offer), indent=4),
+            response=json.dumps(get_all(Offer), indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
@@ -102,6 +107,7 @@ def get_offers():
         elif isinstance(request.json, dict):
             insert_data_offer([request.json])
 
+"""Эндпоинт для отображения приложения по его id"""
 
 @app.route("/offer/<int:offer_id>", methods=["GET", "PUT", "DELETE"])
 def get_offer_by_id(offer_id):
@@ -110,21 +116,21 @@ def get_offer_by_id(offer_id):
         for row in data:
             if row.get("id") == offer_id:
                 return app.response_class(
-                    response=json.dumps(row, indent=4),
+                    response=json.dumps(row, indent=4, ensure_ascii=False),
                     status=200,
                     mimetype="application/json"
                 )
     elif request.method == "PUT":
         update_v2(User, offer_id, request.json)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )
     elif request.method == "DELETE":
         delete(User, offer_id)
         return app.response_class(
-            response=json.dumps(["OK"], indent=4),
+            response=json.dumps(["OK"], indent=4, ensure_ascii=False),
             status=200,
             mimetype="application/json"
         )

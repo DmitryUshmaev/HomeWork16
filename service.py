@@ -3,6 +3,8 @@ import json
 from models import *
 from config import db
 
+"""Заполнение моделей пользователей"""
+
 
 def insert_data_user(input_data):
     for row in input_data:
@@ -19,6 +21,9 @@ def insert_data_user(input_data):
         )
 
     db.session.commit()
+
+
+"""Заполнение моделей заказов"""
 
 
 def insert_data_order(input_data):
@@ -40,6 +45,9 @@ def insert_data_order(input_data):
     db.session.commit()
 
 
+"""Заполнение моделей предложений"""
+
+
 def insert_data_offer(input_data):
     for row in input_data:
         db.session.add(
@@ -53,6 +61,9 @@ def insert_data_offer(input_data):
     db.session.commit()
 
 
+"""Метод получения всех данных model"""
+
+
 def get_all(model):
     result = []
     for row in db.session.query(model).all():
@@ -60,13 +71,30 @@ def get_all(model):
 
     return result
 
-def update(model, user_id, values):
-    data = db.session.query(model).get(user_id)
-    data.id = values.get('id')
-    data.first_name = values.get('first_name')
-    data.last_name = values.get('last_name')
 
-    db.session.commit()
+"""Получение по id"""
+
+
+def get_all_by_id(model, user_id):
+    try:
+        return db.session.query(model).get(user_id).to_dict()
+    except Exception:
+        return {}
+
+
+"""Обновление модели пользователей"""
+
+
+def update(model, user_id, values):
+    try:
+        data = db.session.query(model).get(user_id)
+        data.id = values.get('id')
+        data.first_name = values.get('first_name')
+        data.last_name = values.get('last_name')
+
+        db.session.commit()
+    except Exception:
+        return {}
 
 
 def update_v2(model, user_id, values):
@@ -74,9 +102,14 @@ def update_v2(model, user_id, values):
     db.session.commit()
 
 
+"""Удаление объектов модели"""
+
 def delete(model, user_id):
     db.session.query(model).filter(model.id == user_id).delete()
     db.session.commit()
+
+
+"""Обновление баз данных"""
 
 
 def init_db():
